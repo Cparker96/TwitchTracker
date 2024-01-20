@@ -1,7 +1,11 @@
 from auth import fetch_token
+from sockets import init_socket
+import asyncio
 
-if __name__ == "__main__":
-    get_token = fetch_token()
-    print(get_token)
+async def main():
+    token = fetch_token()
+    result = await init_socket()
+    print(token, result)
 
-    #### COMMENT
+asyncio.run(main())
+

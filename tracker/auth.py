@@ -20,4 +20,4 @@ def fetch_token() -> str:
 
     post_token = requests.post(url=auth_url + '/oauth2/token', headers=headers, data=data)
     token = post_token.json()
-    return token['access_token']
+    return token
