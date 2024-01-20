@@ -5,7 +5,7 @@ import asyncio
 async def main():
     token = fetch_token()
     result = await init_socket()
-    print(token, result)
+    print(result)
 
 asyncio.run(main())
 
