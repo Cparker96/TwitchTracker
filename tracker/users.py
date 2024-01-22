@@ -14,7 +14,7 @@ async def init_socket():
         recv_message = json.loads(message)
         return recv_message['metadata']['message_id']
     
-def set_subscribe(message_id: str, token: str):
+def set_subscribe(message_id: str, token: str, user: dict):
     headers = {
         "Authorization": f"Bearer {token}",
         "Client-Id": client_id,
@@ -24,6 +24,12 @@ def set_subscribe(message_id: str, token: str):
     sub_data = {
         "type": "stream.online",
         "version": "1",
+        "condition": {
+            "broadcaster_id": user['data'][0]['id']
+        },
+        "transport": {
+            "method": "websocket"
+        }
 
     }
 
@@ -35,5 +41,18 @@ def get_users(token: str) -> dict:
         "Client-Id": client_id,
     }
 
-    users = requests.get("https://api.twitch.tv/helix/users?login=loltyler1")
+    users = requests.get("https://api.twitch.tv/helix/users?login=nightblue3", headers=headers)
     return users.json()
+
+def get_streams(token: str):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Client-Id": client_id
+    }
+
+    streams = requests.get("https://api.twitch.tv/helix/streams?user_login=loltyler1&type=live", headers=headers)
+    return streams
+
+if __name__ == "__main__":
+    s = get_streams('e4k0es94v565x1q1k5oyk4nt3zrjmb')
+    print(s.json())
