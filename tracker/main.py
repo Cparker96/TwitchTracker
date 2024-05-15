@@ -7,13 +7,12 @@ import time
 
 async def main():
     token = fetch_token()
-
     ### I'm gonna need to figure out how to recursively check to see if the token is valid
     ### not solving for it now
 
     while True:
         try:      
-            get_stream_status = get_streams(token)
+            get_stream_status = get_streams(token["access_token"])
         except requests.exceptions.ConnectionError as connError:
             print(f"connection issue raised - {connError}")
             break
@@ -30,7 +29,7 @@ async def main():
             continue
 
         for stream in get_stream_status["data"]:
-            driver = init_driver(stream['user_login'])
+            driver = init_driver()
             if driver.current_url == f"https://twitch.tv/{stream['user_login']}":
                 claim_button = locate_channel_button(driver)
                 if claim_button is not None:
