@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchAttributeException
 from dotenv import load_dotenv
+import time
 import os
 
 load_dotenv()
@@ -27,7 +28,7 @@ def init_driver() -> webdriver:
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(options=options)
-    driver.get("https://www.twitch.tv/tenz")
+    driver.get("https://www.twitch.tv/s0mcs")
     cookies = {
         "twitch.lohp.countryCode": "US",
         "unique_id": unique_id,
@@ -38,7 +39,7 @@ def init_driver() -> webdriver:
         "bits_sudo": sudo,
         "login": "a5yncio",
         "name": "a5yncio",
-        "last_login": "2024-01-20T04:30:31Z",
+        "last_login": "2024-05-21T04:15:18Z",
         "api_token": api_token_header,
         "twilight-user": twilight_user,
         "auth-token": auth_token_header,
@@ -48,12 +49,12 @@ def init_driver() -> webdriver:
         "tachyon-user": tachyon_user,
         "_ga_60KWEWG403": ga_60k,
         "unique_id": unique_id,
-        "_ga_RZGH9Y6L73": ga_rzg,
-        "_ga": ga,
-        "_ga_NQNWDWJXCP": ga_nqn,
-        "proto": "HTTP/3",
-        "_gid": gid,
-        "server_session_id": server_session_id
+        # "_ga_RZGH9Y6L73": ga_rzg,
+        # "_ga": ga,
+        # "_ga_NQNWDWJXCP": ga_nqn,
+        # "proto": "HTTP/3",
+        # "_gid": gid,
+        # "server_session_id": server_session_id
     }
 
     for cookie in cookies:
@@ -65,10 +66,11 @@ def init_driver() -> webdriver:
     
 def locate_channel_button(driver: webdriver):
     try:
-        claim_button = driver.find_element(By.CLASS_NAME, "ScCoreButton-sc-ocjdkq-0")
-    except NoSuchAttributeException:
-        return False
-    return True
+        time.sleep(5)
+        claim_button = driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div/div[1]/aside/div/div/div[2]/div/div[2]/section/div/div[6]/div[2]/div[2]/div[1]/div/div/div/div[2]/div/div/div/button")
+    except NoSuchAttributeException as error:
+        return error
+    return type(claim_button)
 
 def get_cookies():
     pass
