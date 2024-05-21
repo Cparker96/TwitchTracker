@@ -13,5 +13,5 @@ def get_streams(token: str):
         "Client-Id": client_id
     }
 
-    streams = requests.get(url=stream_url + f"/streams?user_login=tenz&type=live", headers=headers)
+    streams = requests.get(url=stream_url + f"/streams?user_login=loltyler1&type=live", headers=headers)
     return streams.json()

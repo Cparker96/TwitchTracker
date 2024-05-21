@@ -28,7 +28,8 @@ def init_driver() -> webdriver:
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(options=options)
-    driver.get("https://www.twitch.tv/s0mcs")
+    driver.get("https://www.twitch.tv/loltyler1")
+
     cookies = {
         "twitch.lohp.countryCode": "US",
         "unique_id": unique_id,
@@ -49,12 +50,6 @@ def init_driver() -> webdriver:
         "tachyon-user": tachyon_user,
         "_ga_60KWEWG403": ga_60k,
         "unique_id": unique_id,
-        # "_ga_RZGH9Y6L73": ga_rzg,
-        # "_ga": ga,
-        # "_ga_NQNWDWJXCP": ga_nqn,
-        # "proto": "HTTP/3",
-        # "_gid": gid,
-        # "server_session_id": server_session_id
     }
 
     for cookie in cookies:
@@ -64,16 +59,15 @@ def init_driver() -> webdriver:
     return driver
 
     
-def locate_channel_button(driver: webdriver):
+def locate_channel_button(driver: webdriver) -> bool:
     try:
-        time.sleep(5)
-        claim_button = driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div/div[2]/div/div[1]/aside/div/div/div[2]/div/div[2]/section/div/div[6]/div[2]/div[2]/div[1]/div/div/div/div[2]/div/div/div/button")
-    except NoSuchAttributeException as error:
-        return error
-    return type(claim_button)
-
-def get_cookies():
-    pass
+        time.sleep(10)
+        claim_button = driver.find_element(By.XPATH, "//*[@id='live-page-chat']/div/div/div[2]/div/div/section/div/div[6]/div[2]/div[2]/div[1]/div/div/div/div[2]/div/div/div/button")
+        claim_button.click()
+        time.sleep(10)
+    except NoSuchAttributeException:
+        return False
+    return True
 
 if __name__ == "__main__":
     a = init_driver()
